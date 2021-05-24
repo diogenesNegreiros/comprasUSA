@@ -29,9 +29,9 @@ class SettingsViewController: UIViewController {
     }
     
     func setValues() {
-        tc.dolar = tc.convertToDouble(tfDolar.text!) ?? 3.5
-        tc.iof = tc.convertToDouble(tfIOF.text!) ?? 6.38
-        tc.stateTaxes = tc.convertToDouble(tfEstateTaxes.text!) ?? 7.0
+        tc.dolar = tc.convertToDouble(tfDolar.text!)
+        tc.iof = tc.convertToDouble(tfIOF.text!)
+        tc.stateTaxes = tc.convertToDouble(tfEstateTaxes.text!)
     }
 
 }

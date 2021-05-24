@@ -31,10 +31,10 @@ class ShoppingViewController: UIViewController {
     }
     
     func setAmmount() {
-        if tfDolar.text == nil{
+        if tfDolar.text == ""{
             tc.shoppingValue = 0
         }else{
-            tc.shoppingValue = tc.convertToDouble(tfDolar.text!) ?? 0
+            tc.shoppingValue = tc.convertToDouble(tfDolar.text!)
         }
         
        

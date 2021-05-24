@@ -20,7 +20,7 @@ class TaxesCalculator {
         return shoppingValue * dolar
     }
     
-    var stateTaxesValues: Double {
+    var stateTaxesValue: Double {
         return shoppingValue * stateTaxes/100
     }
     
@@ -32,9 +32,9 @@ class TaxesCalculator {
         formatter.alwaysShowsDecimalSeparator = true
     }
     
-    func convertToDouble(_ string: String) -> Double? {
+    func convertToDouble(_ string: String) -> Double {
         formatter.numberStyle = .none
-        return formatter.number(from: string)?.doubleValue
+        return formatter.number(from: string)!.doubleValue
     }
     
     func getFormattedValue(of value: Double, withCurrency currency: String) -> String {
@@ -45,7 +45,7 @@ class TaxesCalculator {
     }
     
     func calculate(usindCreditCard: Bool) -> Double{
-        var finalValue = shoppingValue + stateTaxes
+        var finalValue = shoppingValue + stateTaxesValue
         if usindCreditCard {
             finalValue += iofValue
         }
