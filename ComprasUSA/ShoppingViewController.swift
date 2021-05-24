@@ -12,9 +12,7 @@ class ShoppingViewController: UIViewController {
     @IBOutlet weak var tfDolar: UITextField!
     @IBOutlet weak var lbRealDescription: UILabel!
     @IBOutlet weak var lbReal: UILabel!
-    
-
-    
+        
 //    lazy var numberFormatter: NumberFormatter = {
 //        let formatter = NumberFormatter()
 //        formatter.locale = Locale(identifier: "pt_BR")
@@ -27,8 +25,27 @@ class ShoppingViewController: UIViewController {
      
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setAmmount()
+    }
+    
+    func setAmmount() {
+        if tfDolar.text == nil{
+            tc.shoppingValue = 0
+        }else{
+            tc.shoppingValue = tc.convertToDouble(tfDolar.text!) ?? 0
+        }
+        
+       
+        lbReal.text = tc.getFormattedValue(of: tc.shoppingValue * tc.dolar, withCurrency: "R$ ")
+        let dolar = tc.getFormattedValue(of: tc.dolar, withCurrency: "")
+        lbRealDescription.text = "Valor sem impostos (dolár \(dolar))"
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
+        tfDolar.resignFirstResponder()
+        setAmmount()
     }
 
 }

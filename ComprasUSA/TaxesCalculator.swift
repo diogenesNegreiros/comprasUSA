@@ -11,11 +11,11 @@ class TaxesCalculator {
     
     static let shared = TaxesCalculator()
     let formatter = NumberFormatter()
-    let dolar = 3.5
+    var dolar = 3.5
     var stateTaxes = 7.0
     var shoppingValue: Double = 0
     var iof = 6.38
-    
+
     var shoppingValueInReal: Double {
         return shoppingValue * dolar
     }
@@ -32,11 +32,24 @@ class TaxesCalculator {
         formatter.alwaysShowsDecimalSeparator = true
     }
     
+    func convertToDouble(_ string: String) -> Double? {
+        formatter.numberStyle = .none
+        return formatter.number(from: string)?.doubleValue
+    }
+    
+    func getFormattedValue(of value: Double, withCurrency currency: String) -> String {
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = currency
+        formatter.alwaysShowsDecimalSeparator = true
+        return formatter.string(for: value)!
+    }
+    
     func calculate(usindCreditCard: Bool) -> Double{
         var finalValue = shoppingValue + stateTaxes
         if usindCreditCard {
             finalValue += iofValue
         }
-        return finalValue
+        return finalValue * dolar
     }
+    
 }

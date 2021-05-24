@@ -8,7 +8,7 @@
 import UIKit
 
 class TaxesViewController: UIViewController {
-
+    
     @IBOutlet weak var lbDolar: UILabel!
     @IBOutlet weak var lbStateTax: UILabel!
     @IBOutlet weak var labelIOfDescription: UILabel!
@@ -19,19 +19,26 @@ class TaxesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        calculateTaxes()
     }
-    */
-
+    
+    @IBAction func changeIOF(_ sender: UISwitch) {
+        calculateTaxes()
+    }
+    
+    func calculateTaxes() {
+        labelStateTaxDescription.text = "Imposto do Estado \(tc.getFormattedValue(of: tc.stateTaxes, withCurrency: "-"))"
+        labelIOfDescription.text = "IOF \(tc.getFormattedValue(of: tc.iof, withCurrency: "-"))"
+        lbDolar.text = tc.getFormattedValue(of: tc.shoppingValue, withCurrency: "US$ ")
+        lbStateTax.text = tc.getFormattedValue(of: tc.stateTaxesValues, withCurrency: "US$ ")
+        labelIOF.text = tc.getFormattedValue(of: tc.iofValue, withCurrency: "US$ ")
+        let real = tc.calculate(usindCreditCard: switchCreditCard.isOn)
+        lbTotalReal.text = tc.getFormattedValue(of: real, withCurrency: "R$ ")
+    }
+    
 }
