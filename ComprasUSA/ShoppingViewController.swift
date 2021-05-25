@@ -7,22 +7,15 @@
 
 import UIKit
 
-class ShoppingViewController: UIViewController {
+class ShoppingViewController: UIViewController{
     
     @IBOutlet weak var tfDolar: UITextField!
     @IBOutlet weak var lbRealDescription: UILabel!
     @IBOutlet weak var lbReal: UILabel!
-        
-//    lazy var numberFormatter: NumberFormatter = {
-//        let formatter = NumberFormatter()
-//        formatter.locale = Locale(identifier: "pt_BR")
-//        formatter.numberStyle = .currency
-//        return formatter
-//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,13 +24,11 @@ class ShoppingViewController: UIViewController {
     }
     
     func setAmmount() {
-        if tfDolar.text == ""{
+        if tfDolar.text == "" {
             tc.shoppingValue = 0
         }else{
             tc.shoppingValue = tc.convertToDouble(tfDolar.text!)
         }
-        
-       
         lbReal.text = tc.getFormattedValue(of: tc.shoppingValue * tc.dolar, withCurrency: "R$ ")
         let dolar = tc.getFormattedValue(of: tc.dolar, withCurrency: "")
         lbRealDescription.text = "Valor sem impostos (dolár \(dolar))"
@@ -46,7 +37,9 @@ class ShoppingViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         tfDolar.resignFirstResponder()
         setAmmount()
+        tfDolar.text = tc.getFormattedValue(of: tc.shoppingValue , withCurrency: "")
     }
-
+    
 }
+
 

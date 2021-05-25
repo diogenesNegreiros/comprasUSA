@@ -32,13 +32,18 @@ class TaxesViewController: UIViewController {
     }
     
     func calculateTaxes() {
-        labelStateTaxDescription.text = "Imposto do Estado \(tc.getFormattedValue(of: tc.stateTaxes, withCurrency: "")) )"
-        labelIOfDescription.text = "IOF \(tc.getFormattedValue(of: tc.iof, withCurrency: "")) )"
+        labelStateTaxDescription.text = "Imposto do Estado \(tc.getFormattedValue(of: tc.stateTaxes, withCurrency: "(")) )"
+        labelIOfDescription.text = "IOF \(tc.getFormattedValue(of: tc.iof, withCurrency: "(")) )"
         lbDolar.text = tc.getFormattedValue(of: tc.shoppingValue, withCurrency: "US$ ")
         lbStateTax.text = tc.getFormattedValue(of: tc.stateTaxesValue, withCurrency: "US$ ")
-        labelIOF.text = tc.getFormattedValue(of: tc.iofValue, withCurrency: "US$ ")
-        let real = tc.calculate(usindCreditCard: switchCreditCard.isOn)
-        lbTotalReal.text = tc.getFormattedValue(of: real, withCurrency: "R$ ")
+        
+        if tc.shoppingValue == 0 {
+            labelIOF.text = "US$ 0,00"
+            lbTotalReal.text = "R$ 0,00"
+        }else{
+            labelIOF.text = tc.getFormattedValue(of: tc.iofValue, withCurrency: "US$ ")
+            let real = tc.calculate(usindCreditCard: switchCreditCard.isOn)
+            lbTotalReal.text = tc.getFormattedValue(of: real, withCurrency: "R$ ")
+        }
     }
-    
 }
