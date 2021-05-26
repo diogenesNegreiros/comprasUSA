@@ -38,12 +38,15 @@ class TaxesViewController: UIViewController {
         lbStateTax.text = tc.getFormattedValue(of: tc.stateTaxesValue, withCurrency: "US$ ")
         
         if tc.shoppingValue == 0 {
-            labelIOF.text = "US$ 0.00"
+            labelIOF.text = tc.getFormattedValue(of: 0.00, withCurrency: "US$ ")
             lbTotalReal.text = "R$ 0,00"
         }else{
             labelIOF.text = tc.getFormattedValue(of: tc.iofValue, withCurrency: "US$ ")
             let real = tc.calculate(usindCreditCard: switchCreditCard.isOn)
             lbTotalReal.text = tc.getFormattedValue(of: real, withCurrency: "R$ ", withLocale: Locale.br)
+        }
+        if !switchCreditCard.isOn {
+            labelIOF.text = tc.getFormattedValue(of: 0.00, withCurrency: "US$ ")
         }
     }
 }

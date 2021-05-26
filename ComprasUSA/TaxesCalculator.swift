@@ -21,7 +21,7 @@ class TaxesCalculator {
     var stateTaxes = 7.0
     var shoppingValue: Double = 0
     var iof = 6.38
-
+    
     var shoppingValueInReal: Double {
         return shoppingValue * dolar
     }
@@ -42,13 +42,18 @@ class TaxesCalculator {
         let string = string.replacingOccurrences(of: ",", with: "")
         formatter.numberStyle = .none
         formatter.locale = Locale.us
-        let num = formatter.number(from: string)!.doubleValue
-        return num
+        
+        if let myNum = formatter.number(from: string)?.doubleValue {
+            return myNum
+        }else{
+            return 0
+        }
     }
     
     func updateAmount(amount: Int) -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        formatter.alwaysShowsDecimalSeparator = true
         formatter.locale = Locale.us
         formatter.currencySymbol = ""
         let amount = Double(amount/100) + Double(amount%100)/100
