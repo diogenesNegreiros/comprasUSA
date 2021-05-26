@@ -15,9 +15,9 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tfDolar.text = tc.getFormattedValue(of: tc.dolar, withCurrency: "")
-        tfIOF.text = tc.getFormattedValue(of: tc.iof, withCurrency: "")
-        tfEstateTaxes.text = tc.getFormattedValue(of: tc.stateTaxes, withCurrency: "")
+        tfDolar.text = tc.getFormattedValue(of: tc.dolar, withCurrency: "", withLocale: Locale.us)
+        tfIOF.text = tc.getFormattedValue(of: tc.iof, withCurrency: "", withLocale: Locale.us)
+        tfEstateTaxes.text = tc.getFormattedValue(of: tc.stateTaxes, withCurrency: "", withLocale: Locale.us)
         
         tfDolar.delegate = self
         tfIOF.delegate = self

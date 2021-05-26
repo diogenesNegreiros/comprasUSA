@@ -7,6 +7,12 @@
 
 import Foundation
 
+extension Locale {
+    static let br = Locale(identifier: "pt_BR")
+    static let us = Locale(identifier: "en_US")
+    static let uk = Locale(identifier: "en_GB") // ISO Locale
+}
+
 class TaxesCalculator {
     
     static let shared = TaxesCalculator()
@@ -33,13 +39,26 @@ class TaxesCalculator {
     }
     
     func convertToDouble(_ string: String) -> Double {
+        let string = string.replacingOccurrences(of: ",", with: "")
         formatter.numberStyle = .none
-        return formatter.number(from: string)!.doubleValue
+        formatter.locale = Locale.us
+        let num = formatter.number(from: string)!.doubleValue
+        return num
     }
     
-    func getFormattedValue(of value: Double, withCurrency currency: String) -> String {
+    func updateAmount(amount: Int) -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.us
+        formatter.currencySymbol = ""
+        let amount = Double(amount/100) + Double(amount%100)/100
+        return formatter.string(from: NSNumber(value: amount))
+    }
+    
+    func getFormattedValue(of value: Double, withCurrency currency: String, withLocale locale: Locale = Locale.us) -> String {
         formatter.numberStyle = .currency
         formatter.currencySymbol = currency
+        formatter.locale = locale
         formatter.alwaysShowsDecimalSeparator = true
         return formatter.string(for: value)!
     }
